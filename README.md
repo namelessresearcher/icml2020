@@ -1,6 +1,6 @@
 # Node-Queries
 
-This repository contains python code used for the experiments of the paper "Counting Induced Subgraphs Under Noise: The Power of Neighborhood Queries". 
+This repository contains python code used for the experiments of the paper "Estimating the Number of Induced Subgraphs from Incomplete Data and Neighborhood Queries". 
 
 ## Prerequisites
 
