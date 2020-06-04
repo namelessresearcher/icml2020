@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-#precomputed data used in the paper
+#pre-computed data used in the paper
 y = np.array([7.452930027717221, 6.428576119005332, 5.330663735125866, 4.2314253 ,2.749511267242876,1.2725809983205592 ,0.7653683909468516])
 x = np.array([391.0,253.0,172.0,113.0,52.0,10.0,3.0])/50000
 error = np.array([0.514232,0.454315,0.42634,0.36354,0.25425,0.1114323,0.074382])

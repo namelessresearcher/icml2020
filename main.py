@@ -9,7 +9,7 @@ print G.GetEdges(), ' edges'
 print snap.GetTriads(G), ' triangles'
 
 
-#-----------------------------triangle estimator demo----------------------
+#-----------------------------triangle estimator demo-----------------------
 actual = snap.GetTriads(G)
 noise_model = 'main'
 
@@ -30,7 +30,7 @@ error = calc_error(results, actual)
 print error 
 
 
-#-----------------------------edge estimator demo----------------------
+#-----------------------------edge estimator demo-----------------------
 actual = G.GetEdges()
 noise_model = 'main'
 k = 100

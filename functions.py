@@ -8,7 +8,7 @@ from heapq import nlargest
 import random
 
 def copy_graph(graph):
-    """Creates a deep copy of a graph object
+    """Creates a deep copy of a graph
 
     Args:
         graph: which graph to copy
