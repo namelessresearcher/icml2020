@@ -128,6 +128,67 @@ def gen_sample(G,p, noise_model='main'):
     return G_sample
 
 
+def calculate_prob_distribution(G):
+ 
+     """calculates a distribution over the vertices which will be later used to sample uniform wedges
+
+    Args:
+        G: input graph
+        
+    Returns:
+        nodes_list: a list with all the node ids
+        probabilities: the probability distribution over the nodes
+        normalizing: the factor used to normalize the distribution
+    """
+    
+    nodes_list = []
+    probabilities = []
+    normalizing = 0
+    for NI in G.Nodes():
+        nodes_list.append(NI.GetId())
+        probb = 1.0*NI.GetDeg()*(NI.GetDeg()-1)/2
+        probabilities.append(probb)
+        normalizing += probb
+    probabilities = [x/normalizing for x in probabilities]
+    return nodes_list, probabilities, normalizing
+
+def queries_only_estimator(G,num_of_queries,nodes_list, probabilities, normalizing):
+ 
+     """implements the wedge sampling estimator
+
+    Args:
+        G: input graph
+        num_of_queries: number of wedges to be sampled
+        nodes_list: a list with all the node ids
+        probabilities: the probability distribution over the nodes
+        normalizing: the factor used to normalize the distribution: 
+        
+    Returns:
+        estimator for the number of triangles
+    """    
+    
+    count = 0
+    my_int = snap.TInt  
+    
+    selected_vertices = np.random.choice(nodes_list, size=num_of_queries, replace=True, p=probabilities)
+    for nid in selected_vertices:
+        current = G.GetNI(nid)
+        #select two nodes that are adjascent to current
+        degree = current.GetDeg()
+        random_number = my_int.GetRnd(degree)
+        random_neighbor_id1 = current.GetNbrNId(random_number)
+        while True:
+            random_number = my_int.GetRnd(degree)
+            random_neighbor_id2 = current.GetNbrNId(random_number)
+            if random_neighbor_id2 != random_neighbor_id1:
+                break
+        if G.IsEdge(random_neighbor_id1, random_neighbor_id2) or G.IsEdge(random_neighbor_id2, random_neighbor_id1):
+            count += 1
+            
+
+    return (1.0*count/num_of_queries)*(normalizing/3)
+    
+    
 def naive_estimator(g,p,noise_model):
     if noise_model == 'main':
      """this implements the naive estimator that counts the triangles in the sample and performs a rescaling

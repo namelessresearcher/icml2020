@@ -3,6 +3,7 @@ from functions import *
 
 #-------------------------------import dataset------------------------
 G1 = snap.LoadEdgeList(snap.PUNGraph, "ego-gplus.txt", 0, 1)
+snap.DelSelfEdges(G1)
 G = snap.ConvertGraph(snap.PUNGraph, G1)
 print G.GetNodes(), ' nodes'
 print G.GetEdges(), ' edges' 
